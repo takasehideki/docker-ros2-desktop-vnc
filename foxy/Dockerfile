@@ -14,4 +14,8 @@ COPY ./ros-foxy-desktop.sh /ros-foxy-desktop.sh
 RUN mkdir -p /tmp/ros_setup_scripts_ubuntu && mv /ros-foxy-desktop.sh /tmp/ros_setup_scripts_ubuntu/ && \
     gosu ubuntu /tmp/ros_setup_scripts_ubuntu/ros-foxy-desktop.sh && \
     rm -rf /var/lib/apt/lists/*
+COPY ./additional-install.sh /additional-install.sh
+RUN mkdir -p /tmp/additional_install_scripts_ubuntu && mv /additional-install.sh /tmp/additional_install_scripts_ubuntu/ && \
+    gosu ubuntu /tmp/additional_install_scripts_ubuntu/additional-install.sh && \
+    rm -rf /var/lib/apt/lists/*
 ENV USER ubuntu
