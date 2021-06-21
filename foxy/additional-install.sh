@@ -12,3 +12,5 @@ set +u
 
 source /opt/ros/${CHOOSE_ROS_DISTRO}/setup.bash
 
+grep -F "export ROS_LOCALHOST_ONLY=1" ~/.bashrc ||
+echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
