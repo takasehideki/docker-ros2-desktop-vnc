@@ -65,6 +65,9 @@ EOF
 BASHRC_PATH=$HOME/.bashrc
 grep -F "source /opt/ros/$ROS_DISTRO/setup.bash" $BASHRC_PATH || echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> $BASHRC_PATH
 grep -F "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" $BASHRC_PATH || echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> $BASHRC_PATH
+## ros2study: additional setting for TurtleBot3 environment
+grep -F "export ROS_LOCALHOST_ONLY=1" $BASHRC_PATH || echo "export ROS_LOCALHOST_ONLY=1" >> $BASHRC_PATH
+grep -F "export TURTLEBOT3_MODEL=burger" $BASHRC_PATH || echo "export TURTLEBOT3_MODEL=burger" >> $BASHRC_PATH
 chown $USER:$USER $BASHRC_PATH
 
 # Fix rosdep permission

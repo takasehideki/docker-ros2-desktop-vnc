@@ -117,6 +117,22 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
     rm -rf /var/lib/apt/lists/*; \
     fi
 
+## ros2study: additional install for TurtleBot3 environment
+## https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/#pc-setup
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
+    apt-get update -q && \
+    apt-get install -y \
+    ros-${ROS_DISTRO}-gazebo-* \
+    ros-${ROS_DISTRO}-cartographer \
+    ros-${ROS_DISTRO}-cartographer-ros \
+    ros-${ROS_DISTRO}-navigation2 \
+    ros-${ROS_DISTRO}-nav2-bringup \
+    ros-${ROS_DISTRO}-dynamixel-sdk \
+    ros-${ROS_DISTRO}-turtlebot3-msgs \
+    ros-${ROS_DISTRO}-turtlebot3 && \
+    rm -rf /var/lib/apt/lists/*; \
+    fi
+
 COPY ./entrypoint.sh /
 ENTRYPOINT [ "/bin/bash", "-c", "/entrypoint.sh" ]
 
