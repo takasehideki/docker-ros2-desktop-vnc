@@ -65,10 +65,12 @@ RUN sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 # Install Firefox
-RUN DEBIAN_FRONTEND=noninteractive add-apt-repository ppa:mozillateam/ppa -y && \
-    echo 'Package: *' > /etc/apt/preferences.d/mozilla-firefox && \
-    echo 'Pin: release o=LP-PPA-mozillateam' >> /etc/apt/preferences.d/mozilla-firefox && \
-    echo 'Pin-Priority: 1001' >> /etc/apt/preferences.d/mozilla-firefox && \
+RUN DEBIAN_FRONTEND=noninteractive && \
+    wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && \
+    echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null && \
+    echo 'Package: *' > /etc/apt/preferences.d/mozilla && \
+    echo 'Pin: origin packages.mozilla.org' >> /etc/apt/preferences.d/mozilla && \
+    echo 'Pin-Priority: 1000' >> /etc/apt/preferences.d/mozilla && \
     apt-get update -q && \
     apt-get install -y \
     firefox && \
